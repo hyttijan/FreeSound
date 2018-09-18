@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
-from pathlib import Path
 from dotenv import load_dotenv
 env_path = './.env'
 
@@ -26,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.getenv('SECRET_KEY') 
-print(SECRET_KEY)
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
