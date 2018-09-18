@@ -19,6 +19,7 @@ class Collection(models.Model):
 
 class Audio(models.Model):
 	creator = models.ForeignKey('FreeSoundUser',on_delete=models.SET_NULL,null=True)
+	genre = models.ForeignKey('Genre',on_delete=models.SET_NULL,null=True)
 	collection = models.ForeignKey('collection',on_delete=models.SET_NULL,null=True)
 	name = models.CharField(unique=True,max_length=30)
 	description = models.CharField(max_length=800)
