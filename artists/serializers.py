@@ -9,11 +9,14 @@ class FreeSoundUserSerializer(serializers.ModelSerializer):
 class GenreSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Genre
+		fields = '__all__'
 
 class CollectionSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Collection
+		fields = '__all__'
 
 class AudioSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Audio
+		fields = '__all__'
