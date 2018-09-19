@@ -1,4 +1,5 @@
 from rest_framework import status,viewsets,routers
+from rest_framework.parsers import FormParser,MultiPartParser
 from .models import *
 from .serializers import *
 # Create your views here.
@@ -6,6 +7,7 @@ from .serializers import *
 class FreeSoundUserViewSet(viewsets.ModelViewSet):
 	queryset = FreeSoundUser.objects.all()
 	serializer_class = FreeSoundUserSerializer
+	parser_classes = (MultiPartParser,FormParser)
 
 class GenreViewSet(viewsets.ModelViewSet):
 	queryset = Genre.objects.all()
@@ -18,6 +20,8 @@ class CollectionViewSet(viewsets.ModelViewSet):
 class AudioViewSet(viewsets.ModelViewSet):
 	queryset = Audio.objects.all()
 	serializer_class = AudioSerializer
+	parser_classes = (MultiPartParser,FormParser)
+
 
 router = routers.SimpleRouter()
 
