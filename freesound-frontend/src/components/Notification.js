@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux'
+import {Message} from 'semantic-ui-react'
 class Notification extends React.Component{
 	render(){
-  		console.log(this.props.notifications)
- 		return (this.props.notifications.map(notification=><p>{notification}</p>))		
+ 		return (this.props.notifications.map((notification,index)=><Message key={index} success={notification.level==='success'} error={notification.level==='error'} content={notification.content}/>))		
   	}
 }
 const mapStateToProps =(state)=>{

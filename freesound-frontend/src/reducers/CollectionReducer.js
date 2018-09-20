@@ -1,5 +1,5 @@
 import collectionService from '../services/collections'
-import {addNotificationAction,hideNotificationAction} from './NotificationReducer'
+import {addNotificationErrorAction,hideNotificationAction} from './NotificationReducer'
 const collectionReducer = (state=[],action)=>{
 	switch(action.type){
 		case 'INIT_ALL_COLLECTIONS':
@@ -19,13 +19,13 @@ const initAllCollectionsAction = ()=>{
 			}
 			else{
 				const notification = response.statusText
-				addNotificationAction(notification,dispatch)
+				addNotificationErrorAction(notification,dispatch)
 				setTimeout(()=>hideNotificationAction(dispatch),5000)	
 			}
 		}
 		catch(error){
 			const notification = "Network error, could not fetch collections"
-			addNotificationAction(notification,dispatch)
+			addNotificationErrorAction(notification,dispatch)
 			setTimeout(()=>hideNotificationAction(notification,dispatch),5000)
 		}
 		

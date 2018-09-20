@@ -1,5 +1,5 @@
 import audioService from '../services/audios'
-import {addNotificationAction,hideNotificationAction} from './NotificationReducer'
+import {addNotificationSuccessAction,addNotificationErrorAction,hideNotificationAction} from './NotificationReducer'
 const audioReducer = (state=null,action)=>{
 	return state
 }
@@ -7,14 +7,14 @@ const audioReducer = (state=null,action)=>{
 const addAudioAction = (formData)=>{
 	return async(dispatch)=>{
 		const response = await audioService.addOne(formData)
-		if(response.ok){
-			const notification = `new audio '${response.name}' was added`
-			addNotificationAction(notification,dispatch)
-			setTimeout(()=>hideNotificationAction(dispatch),5000)	
+		if(response.status===201){
+			const notification = `new audio '${response.data.name}' was added`
+			addNotificationSuccessAction(notification,dispatch)
+			setTimeout(()=>hideNotificationAction(notification,dispatch),5000)	
 		}
 		else{
 			const notification = response.statusText
-			addNotificationAction(notification,dispatch)
+			addNotificationErrorAction(notification,dispatch)
 			setTimeout(()=>hideNotificationAction(notification,dispatch),5000)	
 		}
 		

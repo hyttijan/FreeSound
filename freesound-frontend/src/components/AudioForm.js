@@ -3,15 +3,47 @@ import {addAudioAction} from '../reducers/AudioReducer'
 import {initAllGenresAction} from '../reducers/GenreReducer'
 import {initAllCollectionsAction} from '../reducers/CollectionReducer'
 import {filterCollectionsAction} from '../reducers/FilterReducer'
-import {Form,Segment,Select} from 'semantic-ui-react'
+import {Form,Segment,Select, Message} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 class AudioForm extends React.Component{
  	constructor(props){
   		super(props)
-  		this.state = {name:null,description:null,audio_file:null,collection:null,genre:null}
+  		this.state = {name:null,
+  					  description:null,
+  					  audio_file:null,
+  					  collection:null,
+  					  genre:null,
+  					  nameError:null,
+  					  descriptionError:null
+  					  }
   	}
   	handleChange=(event)=>{
   		this.setState({[event.target.name]:event.target.value})
+  		if(event.target.name==='name'){
+  			this.handleNameError(event.target.value)
+  		}
+  		else{
+  			this.handleDescriptionError(event.target.value)
+  		}
+  	}	
+  	handleNameError=(name)=>{
+  		if(name.length===0){
+  			this.setState({nameError:{header:'Too short name',content:'Name has to be at least 1 character long'}})
+  		}
+  		else if(name.length>30){
+  			this.setState({nameError:{header:'Too long name',content:'Name has to be less than 30 characters'}})
+  		}
+  		else{
+  			this.setState({nameError:null})
+  		}
+  	}
+  	handleDescriptionError=(description)=>{
+  		if(description.length>800)(
+  			this.setState({descriptionError:{header:'Too long description',content:'Description has to be less than 800 characters'}})
+  		)
+  		else{
+  			this.setState({descriptionError:null})
+  		}
   	}
   	handleFileChange=(event)=>{
   		this.setState({audio_file:event.target.files[0]})	
@@ -55,11 +87,13 @@ class AudioForm extends React.Component{
   							this.props.collections.filter((collection)=>collection.genre===this.state.genre).map((collection)=>{return {key:collection.id,value:collection.id,text:collection.name}})
   							:
   							this.props.collections.map((collection)=>{return {key:collection.id,value:collection.id,text:collection.name}})					
+  	console.log(this.state.nameError)
   	return(
   		<Segment inverted>
-  			<Form inverted encType="multipart/form-data" onSubmit={this.handleSubmit}>
+  			<Form error inverted encType="multipart/form-data" onSubmit={this.handleSubmit}>
   				<Form.Group  widths='equal'>
-  					<Form.Input fluid label="Name" onChange={this.handleChange} name="name"/> 
+  					<Form.Input fluid label="Name" onChange={this.handleChange} name="name"/>
+  					{this.state.nameError&&<Message error header={this.state.nameError.header} content={this.state.nameError.content}/>} 
   					<Form.Input fluid label="Description" onChange={this.handleChange} name="description"/>
   				</Form.Group>
   				<Form.Group widths='equal'>
@@ -80,7 +114,6 @@ class AudioForm extends React.Component{
 
  				</Form.Group>
   				<Form.Button disabled={!this.state.name
-  					||!this.state.description
   					||!this.state.audio_file}type="submit">submit</Form.Button>
   			</Form>
   		</Segment>)
