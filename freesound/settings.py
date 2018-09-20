@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_auth',
     'artists'
 ]
 
@@ -58,7 +60,9 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'freesound.urls'
-
+REST_AUTH_SERIALIZERS = {
+    'TOKEN_SERIALIZER': 'artists.serializers.TokenSerializer'
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',

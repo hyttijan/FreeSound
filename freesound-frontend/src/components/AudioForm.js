@@ -87,7 +87,6 @@ class AudioForm extends React.Component{
   							this.props.collections.filter((collection)=>collection.genre===this.state.genre).map((collection)=>{return {key:collection.id,value:collection.id,text:collection.name}})
   							:
   							this.props.collections.map((collection)=>{return {key:collection.id,value:collection.id,text:collection.name}})					
-  	console.log(this.state.nameError)
   	return(
   		<Segment inverted>
   			<Form error inverted encType="multipart/form-data" onSubmit={this.handleSubmit}>

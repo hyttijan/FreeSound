@@ -4,11 +4,11 @@ const baseUrl = backendUrl+'/api/users/'
 
 const getOne = async(id)=>{
 	const response  = await axios.get(baseUrl+id)
-	return response.data
+	return response
 }
 const getAll = async()=>{
 	const response  = await axios.get(baseUrl)
-	return response.data
+	return response
 }
 const addOne = async(formData)=>{
 	const config = {
@@ -17,7 +17,7 @@ const addOne = async(formData)=>{
         }
     }
 	const response = await axios.post(baseUrl,formData,config)
-	return response.data
+	return response
 }
 
 export default {getAll,getOne,addOne}

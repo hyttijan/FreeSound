@@ -1,10 +1,17 @@
 from rest_framework import serializers
 from .models import *
+from rest_framework.authtoken.models import Token
+
+class TokenSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Token
+        fields = ('key', 'user')
 
 class FreeSoundUserSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = FreeSoundUser
-		fields = '__all__'
+		fields = ('username','first_name','last_name','email','profile_picture')
 
 class GenreSerializer(serializers.ModelSerializer):
 	class Meta:

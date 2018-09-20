@@ -21,7 +21,7 @@ const addOne = async(formData)=>{
 			return error.response
 		}
 		else{
-			return {ok:false,statusText:"Could not connect to the server"}
+			return {status:500,statusText:"Could not connect to the server"}
 		}
 	}
 }

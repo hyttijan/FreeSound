@@ -19,5 +19,6 @@ from artists.views import router
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/',include((router.urls,'artists')))
+    path('api/',include((router.urls,'artists'))),
+    path(r'rest-auth/', include('rest_auth.urls'))
 ]

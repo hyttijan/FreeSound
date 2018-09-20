@@ -1,5 +1,5 @@
 import genreService from '../services/genres'
-import {addNotificationErrorAction,hideNotificationAction} from './NotificationReducer'
+import {addNotificationErrorAction} from './NotificationReducer'
 const genreReducer = (state=[],action)=>{
 	switch(action.type){
 		case 'INIT_ALL_GENRES':
@@ -21,13 +21,11 @@ const initAllGenresAction = ()=>{
 			else{
 				const notification = response.statusText
 				addNotificationErrorAction(notification,dispatch)
-				setTimeout(()=>hideNotificationAction(notification,dispatch),5000)	
 			}
 		}
 		catch(error){
 			const notification = "Network error, could not fetch genres"
 			addNotificationErrorAction(notification,dispatch)
-			setTimeout(()=>hideNotificationAction(notification,dispatch),5000)
 		}
 		
 	}

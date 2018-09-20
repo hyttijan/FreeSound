@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import {BrowserRouter as Router,Route} from 'react-router-dom'
 import AudioForm from './components/AudioForm'
+import UserView from './views/UserView'
 import Notification from './components/Notification'
-class App extends Component {
+import {Container} from 'semantic-ui-react'
 
+class App extends Component {
+  
   render() {
     return (
-      <div>
-        <h1>Freesound frontend</h1>
-        <Notification/>
-        <AudioForm/>
-      </div>
+      <Router>
+        <Container>
+          <h1>Freesound frontend</h1>
+          <Notification/>
+          <Route exact path="/login" render={()=><UserView/>}/>
+          <Route exact path="/audio" render={()=><AudioForm/>}/>
+        </Container>
+      </Router>
     );
   }
 }
