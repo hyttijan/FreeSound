@@ -4,6 +4,8 @@ const collectionReducer = (state=[],action)=>{
 	switch(action.type){
 		case 'INIT_ALL_COLLECTIONS':
 			return action.collections
+		case 'INIT_GENRE_COLLECTIONS':
+			return action.collections	
 		default:
 			break
 	}
@@ -29,5 +31,23 @@ const initAllCollectionsAction = ()=>{
 		
 	}
 }
-
-export {collectionReducer,initAllCollectionsAction}
+const initAllCollectionInGenreAction = (genreId)=>{
+	return async(dispatch)=>{
+		try{
+			const response = await collectionService.getAllInGenre(genreId)
+			if(response.status===200){
+				dispatch({type:'INIT_GENRE_COLLECTIONS',collections:response.data})	
+			}
+			else{
+				const notification = response.statusText
+				addNotificationErrorAction(notification,dispatch)	
+			}
+		}
+		catch(error){
+			const notification = "Network error, could not fetch collections"
+			addNotificationErrorAction(notification,dispatch)
+		}
+		
+	}
+}
+export {collectionReducer,initAllCollectionsAction,initAllCollectionInGenreAction}

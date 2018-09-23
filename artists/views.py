@@ -1,13 +1,16 @@
-from rest_framework import status,viewsets,routers
+from rest_framework import status,viewsets,routers, permissions
 from rest_framework.parsers import FormParser,MultiPartParser
 from .models import *
+from django_filters import rest_framework as filters
+from .permissions import *
 from .serializers import *
-# Create your views here.
+
 
 class FreeSoundUserViewSet(viewsets.ModelViewSet):
 	queryset = FreeSoundUser.objects.all()
 	serializer_class = FreeSoundUserSerializer
 	parser_classes = (MultiPartParser,FormParser)
+	permission_classes = (permissions.IsAuthenticatedOrReadOnly,IsOwnerOrReadOnly)
 
 class GenreViewSet(viewsets.ModelViewSet):
 	queryset = Genre.objects.all()
@@ -16,6 +19,8 @@ class GenreViewSet(viewsets.ModelViewSet):
 class CollectionViewSet(viewsets.ModelViewSet):
 	queryset = Collection.objects.all()
 	serializer_class = CollectionSerializer
+	filter_backends = (filters.DjangoFilterBackend,)
+	filterset_fields = ('genre',)
 
 class AudioViewSet(viewsets.ModelViewSet):
 	queryset = Audio.objects.all()

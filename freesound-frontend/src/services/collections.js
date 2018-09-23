@@ -10,5 +10,8 @@ const getAll = async()=>{
 	const response  = await axios.get(baseUrl)
 	return response
 }
-
-export default {getAll,getOne}
+const getAllInGenre=async(genreId)=>{
+	const response  = await axios.get(baseUrl+"?genre="+genreId)
+	return response
+}
+export default {getAll,getOne,getAllInGenre}

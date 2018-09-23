@@ -25,7 +25,6 @@ class LoginForm extends React.Component{
         this.setState({usernameError:{header:'Username error',content:'Username cannot be blank'}})  
       }
       else{
-        console.log("dads")
         this.setState({usernameError:null})
       }
       
@@ -47,7 +46,7 @@ class LoginForm extends React.Component{
   	
   	return(
   		<Segment inverted>
-  			<Form error inverted encType="multipart/form-data" onSubmit={this.handleSubmit}>
+  			<Form error inverted onSubmit={this.handleSubmit}>
           {this.state.usernameError&&
           <Form.Group widths='equal'>
             <Message error header={this.state.usernameError.header} content={this.state.usernameError.content}/>

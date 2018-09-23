@@ -16,15 +16,15 @@ const notificationReducer = (state=[],action)=>{
 
 const addNotificationSuccessAction = async(notification,dispatch)=>{
 	dispatch({type:'NOTIFY_SUCCESS',notification:notification})
-	setTimeout(()=>dispatch({type:'HIDE',notification:notification}))
+	setTimeout(()=>dispatch({type:'HIDE',notification:notification}),5000)
 }
 const addNotificationErrorAction = async(notification,dispatch)=>{
 	dispatch({type:'NOTIFY_ERROR',notification:notification})
-	setTimeout(()=>dispatch({type:'HIDE',notification:notification}))
+	setTimeout(()=>dispatch({type:'HIDE',notification:notification}),5000)
 }
 const addNotificationInfoAction = async(notification,dispatch)=>{
 	dispatch({type:'NOTIFY_INFO',notification:notification})
-	setTimeout(()=>dispatch({type:'HIDE',notification:notification}))
+	setTimeout(()=>dispatch({type:'HIDE',notification:notification}),5000)
 }
 const hideNotificationAction = async(notification,dispatch)=>{
 	dispatch({type:'HIDE',notification:notification})

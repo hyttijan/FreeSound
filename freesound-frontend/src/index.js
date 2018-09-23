@@ -15,10 +15,10 @@ import registerServiceWorker from './registerServiceWorker';
 
 const reducer = combineReducers({
 								login: loginReducer,
-								audios:audioReducer,
-								notifications:notificationReducer,
-								genres:genreReducer,
-								collections:collectionReducer,
+								audios: audioReducer,
+								notifications: notificationReducer,
+								genres: genreReducer,
+								collections: collectionReducer,
 								filter: filterReducer
 								})
 

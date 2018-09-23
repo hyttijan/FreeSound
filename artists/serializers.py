@@ -18,12 +18,20 @@ class GenreSerializer(serializers.ModelSerializer):
 		model = Genre
 		fields = '__all__'
 
-class CollectionSerializer(serializers.ModelSerializer):
-	class Meta:
-		model = Collection
-		fields = '__all__'
-
 class AudioSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Audio
 		fields = '__all__'
+
+class CollectionSerializer(serializers.ModelSerializer):
+	audio_set = AudioSerializer(many=True)
+	class Meta:
+		model = Collection
+		fields = ('id','name','description','creator','genre', 'audio_set')
+
+class SingleGenreSerializer(serializers.ModelSerializer):
+	collections = CollectionSerializer(many=True,read_only=True)
+	class Meta:
+		model = Genre
+		fields = '__all__'
+
