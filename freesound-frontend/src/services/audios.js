@@ -7,9 +7,11 @@ const getOne = async(id)=>{
   return response.data
 }
 const addOne = async(formData)=>{
+	const userAndToken = JSON.parse(localStorage.getItem('user'))
 	const config = {
         headers: {
-            'content-type': 'multipart/form-data'
+            'content-type': 'multipart/form-data',
+            'Authorization': 'Token '+userAndToken.key
         }
     }
     try{
@@ -18,6 +20,7 @@ const addOne = async(formData)=>{
 	}
 	catch(error){
 		if(error.response){
+			console.log(error.response)
 			return error.response
 		}
 		else{

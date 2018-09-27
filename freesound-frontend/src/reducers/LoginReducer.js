@@ -4,7 +4,7 @@ import {addNotificationErrorAction,addNotificationSuccessAction} from '../reduce
 const loginReducer = (state=null,action)=>{
 	switch(action.type){
 		case 'LOGIN':
-			console.log(action)
+			console.log(action.user)
 			return action.user
 		case 'LOGOUT':
 			return null
@@ -18,6 +18,7 @@ const loginAction = (credentials)=>{
 	return async(dispatch)=>{
 		try{
 			const response = await loginService.login(credentials)
+			console.log(response.data)
 			const datas = []
 			if(response.status===200){
 				const response2 = await userService.getOne(response.data.user)

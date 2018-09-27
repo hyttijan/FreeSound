@@ -8,6 +8,11 @@ class CollectionsList extends React.Component{
 		componentDidMount(){
 			this.props.initAllCollectionInGenreAction(this.props.genreId)
 		}
+		componentDidUpdate(prevProps){
+			if(prevProps.genreId!==this.props.genreId){
+				this.props.initAllCollectionInGenreAction(this.props.genreId)
+			}
+		}
 		render(){
 			if(this.props.collections===[]){
 				return null
@@ -22,6 +27,7 @@ class CollectionsList extends React.Component{
   					<Table.Header>
     					<Table.Row>
       						<Table.HeaderCell><h3>Name</h3></Table.HeaderCell>
+      						<Table.HeaderCell>Creator</Table.HeaderCell>
       						<Table.HeaderCell textAlign="right">Amount</Table.HeaderCell>
     					</Table.Row>
   					</Table.Header>

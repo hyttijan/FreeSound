@@ -47,6 +47,7 @@ class LoginForm extends React.Component{
   	return(
   		<Segment inverted>
   			<Form error inverted onSubmit={this.handleSubmit}>
+          <h3>Login Form</h3>
           {this.state.usernameError&&
           <Form.Group widths='equal'>
             <Message error header={this.state.usernameError.header} content={this.state.usernameError.content}/>

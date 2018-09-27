@@ -4,6 +4,7 @@ import './index.css';
 import App from './App';
 import {createStore,combineReducers,applyMiddleware} from 'redux'
 import {loginReducer} from './reducers/LoginReducer'
+import {userReducer} from './reducers/UserReducer'
 import {audioReducer} from './reducers/AudioReducer'
 import {genreReducer} from './reducers/GenreReducer'
 import {collectionReducer} from './reducers/CollectionReducer'
@@ -19,6 +20,7 @@ const reducer = combineReducers({
 								notifications: notificationReducer,
 								genres: genreReducer,
 								collections: collectionReducer,
+								user: userReducer,
 								filter: filterReducer
 								})
 

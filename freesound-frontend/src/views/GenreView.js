@@ -6,15 +6,16 @@ import { connect } from 'react-redux'
 class GenreView extends React.Component{
 	constructor(props){
 		super(props)
-		this.genreId = Number(this.props.genreId)
 	}
 	componentDidMount(){
 		if(this.props.genres===[]){
 			this.props.initAllGenresAction()
 		}
 	}
-	render(){ 
-		const genre = this.props.genres.find((genre)=>{return genre.id===this.genreId})
+	render(){
+		const genreId = Number(this.props.genreId)
+		console.log(genreId)
+		const genre = this.props.genres.find((genre)=>{return genre.id===genreId})
 		if(genre===null||genre===undefined){
 			return null
 		}
@@ -22,7 +23,7 @@ class GenreView extends React.Component{
 			<div>
 				<h2>{genre.name}</h2>
 				<p>{genre.description}</p>
-				<CollectionsList genreId={this.genreId}/>
+				<CollectionsList genreId={genreId}/>
 			</div>
 		)
 	}

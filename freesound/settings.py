@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 from dotenv import load_dotenv
+
 env_path = './.env'
 
 #Put your enviroment variables to .env file in freesound dir
@@ -40,15 +41,15 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'corsheaders',
+    'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
     'django_filters',
     'artists'
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -61,9 +62,20 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'freesound.urls'
+
 REST_AUTH_SERIALIZERS = {
     'TOKEN_SERIALIZER': 'artists.serializers.TokenSerializer'
 }
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly', )
+}
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -126,10 +138,15 @@ USE_L10N = True
 
 USE_TZ = True
 
-#NOT FOR PRODUCTION
-CORS_ORIGIN_ALLOW_ALL = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "freesound-frontend/audios"),
+    os.path.join(BASE_DIR, "freesound-frontend/profile_pictures")
+]
+STATIC_URL = '/medias/'
 
-STATIC_URL = '/static/'
+#NOT FOR PRODUCTION
+CORS_ORIGIN_ALLOW_ALL = True
+
