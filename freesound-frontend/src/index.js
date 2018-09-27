@@ -5,7 +5,6 @@ import App from './App';
 import {createStore,combineReducers,applyMiddleware} from 'redux'
 import {loginReducer} from './reducers/LoginReducer'
 import {userReducer} from './reducers/UserReducer'
-import {audioReducer} from './reducers/AudioReducer'
 import {genreReducer} from './reducers/GenreReducer'
 import {collectionReducer} from './reducers/CollectionReducer'
 import {notificationReducer} from './reducers/NotificationReducer'
@@ -16,7 +15,6 @@ import registerServiceWorker from './registerServiceWorker';
 
 const reducer = combineReducers({
 								login: loginReducer,
-								audios: audioReducer,
 								notifications: notificationReducer,
 								genres: genreReducer,
 								collections: collectionReducer,

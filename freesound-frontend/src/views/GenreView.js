@@ -14,7 +14,6 @@ class GenreView extends React.Component{
 	}
 	render(){
 		const genreId = Number(this.props.genreId)
-		console.log(genreId)
 		const genre = this.props.genres.find((genre)=>{return genre.id===genreId})
 		if(genre===null||genre===undefined){
 			return null

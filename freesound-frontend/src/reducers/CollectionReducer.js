@@ -27,7 +27,7 @@ const initAllCollectionsAction = ()=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch collections"
+			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		
@@ -38,7 +38,6 @@ const initAllCollectionInGenreAction = (genreId)=>{
 		try{
 			const response = await collectionService.getAllInGenre(genreId)
 			if(response.status===200){
-				console.log(response.data)
 				dispatch({type:'INIT_GENRE_COLLECTIONS',collections:response.data})	
 			}
 			else{
@@ -47,7 +46,7 @@ const initAllCollectionInGenreAction = (genreId)=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch collections"
+			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		
@@ -68,7 +67,7 @@ const addCollectionAction = (collection)=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch collections"
+			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		

@@ -11,7 +11,7 @@ class AudioList extends React.Component{
 			this.setState({isVisible:!this.state.isVisible})
 		}
 		render(){
-			const audioHeader = <Table.Row>
+			const audioHeader = <Table.Row key={`collection ${this.props.collection.id}`}>
       								<Table.Cell><h4>Audio name</h4></Table.Cell>
       								<Table.Cell>Audio description</Table.Cell>
       								<Table.Cell textAlign="right">Play audio</Table.Cell>
@@ -22,7 +22,7 @@ class AudioList extends React.Component{
       						<Table.Cell>{audio.name}</Table.Cell>
       						<Table.Cell>{audio.description}</Table.Cell>
       						<Table.Cell textAlign="right">
-      							<ReactAudioPlayer src="/audios/test_audio.mp3"
+      							<ReactAudioPlayer src={audio.audio_file}
         										  controls
         										  crossorigin="anonymous"
         						/>

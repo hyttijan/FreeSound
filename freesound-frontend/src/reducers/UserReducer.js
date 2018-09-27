@@ -25,7 +25,7 @@ const signUpAction=(formData)=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch user"
+			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		
@@ -44,7 +44,7 @@ const getUserAction = (userId)=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch user"
+			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		

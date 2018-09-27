@@ -16,7 +16,7 @@ class UserDetails extends React.Component{
 				<Segment>
 					<h2>{this.props.user.username}</h2>
 					<Card
-						image="/profile_pictures/testprofilepic.png"
+						image={this.props.user.profile_picture}
 						header={fullName}
 						extra={extra}
 					/>

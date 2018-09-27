@@ -61,9 +61,14 @@ class AudioForm extends React.Component{
   	handleFileChange=(event)=>{
   		this.setState({audio_file:event.target.files[0]})
   		this.handleAudioFileError(event.target.files[0])
+  		
   	}
   	handleAudioFileError=(file)=>{
-  		if(file===null||file.type!=='audio/mp3'){
+  		
+  		if(file===null||file===undefined){
+  			this.setState({audio_fileError:{header:'Audio file error',content:'Audio file cannot be blank'}})
+  		}
+  		else if(file.type!=='audio/mp3'){
   			this.setState({audio_fileError:{header:'Audio file error',content:'Audio file has to be audio/mp3 format'}})
   		}
   		else{
@@ -157,9 +162,9 @@ class AudioForm extends React.Component{
   					<input type="file" ref="audio_file_uploader" onChange={this.handleFileChange} name="audio_file" style={{display:'none'}}/>	 
  				</Form.Group>
   				<Form.Button disabled={!this.state.name
-  					||!this.state.genre
-  					||!this.state.collection
-  					||!this.state.audio_file
+  					||this.state.genre
+  					||this.state.collection
+  					||this.state.audio_file
   					||this.state.audio_file.type!=='audio/mp3'} type="submit">submit</Form.Button>
   			</Form>
   		</Segment>

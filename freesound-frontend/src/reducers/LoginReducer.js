@@ -1,10 +1,9 @@
 import userService from '../services/users'
 import loginService from '../services/login'
-import {addNotificationErrorAction,addNotificationSuccessAction} from '../reducers/NotificationReducer'
+import {addNotificationErrorAction,addNotificationSuccessAction,addNotificationInfoAction} from '../reducers/NotificationReducer'
 const loginReducer = (state=null,action)=>{
 	switch(action.type){
 		case 'LOGIN':
-			console.log(action.user)
 			return action.user
 		case 'LOGOUT':
 			return null
@@ -18,7 +17,7 @@ const loginAction = (credentials)=>{
 	return async(dispatch)=>{
 		try{
 			const response = await loginService.login(credentials)
-			console.log(response.data)
+			console.log(response)
 			const datas = []
 			if(response.status===200){
 				const response2 = await userService.getOne(response.data.user)

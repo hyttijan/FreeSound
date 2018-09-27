@@ -24,7 +24,7 @@ const initAllGenresAction = ()=>{
 			}
 		}
 		catch(error){
-			const notification = "Network error, could not fetch genres"
+			const notification = error.response?error.response.statutsText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		
