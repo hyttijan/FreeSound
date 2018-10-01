@@ -55,7 +55,7 @@ class CollectionForm extends React.Component{
   		const data = {name:this.state.name,
                     description:this.state.description,
                     genre:this.state.genre,
-                    creator:this.props.login}
+                    creator:[String(this.props.login.id)]}
   		this.props.addCollectionAction(data)
   	}
   	componentDidMount(){

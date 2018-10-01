@@ -1,6 +1,6 @@
 import userService from '../services/users'
 import loginService from '../services/login'
-import {addNotificationErrorAction,addNotificationSuccessAction,addNotificationInfoAction} from '../reducers/NotificationReducer'
+import {addNotificationErrorAction,addNotificationSuccessAction} from '../reducers/NotificationReducer'
 const loginReducer = (state=null,action)=>{
 	switch(action.type){
 		case 'LOGIN':

@@ -21,18 +21,8 @@ const addOne = async(data)=>{
             'Authorization': 'Token '+userAndToken.key
         }
     }
-    try{
-		const response = await axios.post(baseUrl,data,config)
-		return response
-	}
-	catch(error){
-		console.log(error.response)
-		if(error.response){
-			return error.response
-		}
-		else{
-			return {status:500,statusText:"Could not connect to the server"}
-		}
-	}
+	const response = await axios.post(baseUrl,data,config)
+	return response
+
 }
 export default {getAll,getOne,getAllInGenre,addOne}

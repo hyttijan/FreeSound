@@ -30,9 +30,15 @@ class GenreSerializer(serializers.ModelSerializer):
 		fields = '__all__'
 
 class AudioSerializer(serializers.ModelSerializer):
+	
 	class Meta:
 		model = Audio
 		fields = '__all__'
+
+	def create(self, validated_data):
+		data = validated_data.copy()
+		data['creator'] = self.context['request'].user
+		return super(AudioSerializer, self).create(data)
 
 class CollectionSerializer(serializers.ModelSerializer):
 	creator = FreeSoundUserSerializer(read_only=True)

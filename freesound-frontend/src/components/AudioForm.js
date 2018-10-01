@@ -3,6 +3,7 @@ import {addAudioAction} from '../reducers/AudioReducer'
 import {initAllGenresAction} from '../reducers/GenreReducer'
 import {initAllCollectionsAction} from '../reducers/CollectionReducer'
 import {filterCollectionsAction} from '../reducers/FilterReducer'
+import {getLoginAction} from '../reducers/LoginReducer'
 import {Form,Segment,Select, Message,Button} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 class AudioForm extends React.Component{
@@ -107,6 +108,7 @@ class AudioForm extends React.Component{
   	handleSubmit = async(event)=>{
   		event.preventDefault()
   		const formData  = new FormData()
+  		formData.append('creator',this.props.login.id)
   		formData.append('name',this.state.name)
   		formData.append('description',this.state.description)
   		formData.append('audio_file',this.state.audio_file)
@@ -162,9 +164,9 @@ class AudioForm extends React.Component{
   					<input type="file" ref="audio_file_uploader" onChange={this.handleFileChange} name="audio_file" style={{display:'none'}}/>	 
  				</Form.Group>
   				<Form.Button disabled={!this.state.name
-  					||this.state.genre
-  					||this.state.collection
-  					||this.state.audio_file
+  					||!this.state.genre
+  					||!this.state.collection
+  					||!this.state.audio_file
   					||this.state.audio_file.type!=='audio/mp3'} type="submit">submit</Form.Button>
   			</Form>
   		</Segment>
@@ -180,7 +182,8 @@ const mapStateToProps =(state)=>{
 	return{
 		genres: state.genres,
 		collections:state.collections,
-		filter: state.filter
+		filter: state.filter,
+		login: state.login
 	}
 }
 const mapdDispatchToProps = {
@@ -188,6 +191,7 @@ const mapdDispatchToProps = {
 	initAllGenresAction,
 	initAllCollectionsAction,
 	filterCollectionsAction,
+	getLoginAction
 }
 const ConnectedAudioForm = connect(mapStateToProps,mapdDispatchToProps)(AudioForm)
 export default ConnectedAudioForm

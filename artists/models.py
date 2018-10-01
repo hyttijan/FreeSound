@@ -15,8 +15,8 @@ class Genre(models.Model):
 		return self.name
 
 class Collection(models.Model):
-	creator = models.ForeignKey('FreeSoundUser',on_delete=models.CASCADE,null=True)
-	genre = models.ForeignKey('Genre',on_delete=models.CASCADE,null=True)
+	creator = models.ForeignKey('FreeSoundUser',on_delete=models.CASCADE)
+	genre = models.ForeignKey('Genre',on_delete=models.CASCADE)
 	name = models.CharField(unique=True,max_length=30)
 	description = models.CharField(max_length=800,null=True)
 
@@ -24,9 +24,9 @@ class Collection(models.Model):
 		return self.name
 
 class Audio(models.Model):
-	creator = models.ForeignKey('FreeSoundUser',on_delete=models.CASCADE,null=True)
-	genre = models.ForeignKey('Genre',on_delete=models.CASCADE,null=True)
-	collection = models.ForeignKey('collection',on_delete=models.CASCADE,null=True)
+	creator = models.ForeignKey('FreeSoundUser',on_delete=models.CASCADE)
+	genre = models.ForeignKey('Genre',on_delete=models.CASCADE)
+	collection = models.ForeignKey('collection',on_delete=models.CASCADE)
 	name = models.CharField(unique=True,max_length=30)
 	description = models.CharField(max_length=800)
 	audio_file = models.FileField(upload_to="audios",validators=[FileExtensionValidator(['mp3'])])
