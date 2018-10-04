@@ -15,13 +15,13 @@ class App extends Component {
       <div>
       <NavBar/>
       <Container>
-        <h1>Freesound frontend</h1>
+        <h1>Freesound</h1>
         <Notification/>
           <div>
             <Route exact path="/" component={LoginView}/>
             <Route exact path="/user/:id" render={({match})=><UserView userId={match.params.id}/>}/>
             <Route exact path="/genre/:id" render={({match})=><GenreView genreId={match.params.id}/>}/>
-             <Route exact path="/signup" component={SignUpView}/>
+            <Route exact path="/signup" component={SignUpView}/>
           </div>
       </Container>
       </div>

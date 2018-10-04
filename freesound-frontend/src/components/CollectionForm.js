@@ -42,10 +42,9 @@ class CollectionForm extends React.Component{
   			this.setState({descriptionError:null})
   		}
   	}
-  	handleGenreChange=(event,data)=>{
+  	handleGenreChange=async(event,data)=>{
   		const genre = data.value
   		this.setState({genre:genre})
-
   	}
   	handleClick = (event)=>{
   		this.refs.audio_file_uploader.click()
@@ -55,14 +54,13 @@ class CollectionForm extends React.Component{
   		const data = {name:this.state.name,
                     description:this.state.description,
                     genre:this.state.genre,
-                    creator:[String(this.props.login.id)]}
+                    creator:String(this.props.login.id)}
   		this.props.addCollectionAction(data)
   	}
   	componentDidMount(){
   		/** init genres if not initialized**/
-  		if(this.props.genres.length===0){
-  			this.props.initAllGenresAction()	
-  		}
+  		this.props.initAllGenresAction()	
+  		
   	}
   	render(){
   		const genres = this.props.genres.map((genre)=>{return {key:genre.id,value:genre.id,text:genre.name}})					

@@ -1,8 +1,7 @@
 import React from 'react';
 import {addAudioAction} from '../reducers/AudioReducer'
 import {initAllGenresAction} from '../reducers/GenreReducer'
-import {initAllCollectionsAction} from '../reducers/CollectionReducer'
-import {filterCollectionsAction} from '../reducers/FilterReducer'
+import {initAllCollectionInGenreAndCreatorAction, emptyCollectionAction} from '../reducers/CollectionReducer'
 import {getLoginAction} from '../reducers/LoginReducer'
 import {Form,Segment,Select, Message,Button} from 'semantic-ui-react'
 import { connect } from 'react-redux'
@@ -24,12 +23,8 @@ class AudioForm extends React.Component{
   	}
   	componentDidMount(){
   		/** init genres and collections if not initialized**/
-  		if(this.props.genres.length===0){
-  			this.props.initAllGenresAction()	
-  		}
-  		if(this.props.collections.length===0){
-  			this.props.initAllCollectionsAction()	
-  		}
+  		this.props.initAllGenresAction()	
+  		this.props.emptyCollectionAction()
   	}
   	handleChange=(event)=>{
   		this.setState({[event.target.name]:event.target.value})
@@ -79,8 +74,9 @@ class AudioForm extends React.Component{
   	handleGenreChange=(event,data)=>{
   		const genre = data.value
   		this.setState({genre:genre,collection:null})
-  		this.props.filterCollectionsAction()
+  		this.props.initAllCollectionInGenreAndCreatorAction(genre)
   		this.handleGenreError(genre)
+  		this.handleCollectionError(this.state.collection)
   	}
   	handleGenreError=(genre)=>{
   		if(genre===null){
@@ -93,6 +89,7 @@ class AudioForm extends React.Component{
   	handleCollectionChange=(event,data)=>{
   		const collection = data.value
   		this.setState({collection:collection})
+  		this.handleCollectionError(collection)
   	}
   	handleCollectionError=(collection)=>{
   		if(collection===null){
@@ -189,8 +186,8 @@ const mapStateToProps =(state)=>{
 const mapdDispatchToProps = {
 	addAudioAction,
 	initAllGenresAction,
-	initAllCollectionsAction,
-	filterCollectionsAction,
+	initAllCollectionInGenreAndCreatorAction,
+	emptyCollectionAction,
 	getLoginAction
 }
 const ConnectedAudioForm = connect(mapStateToProps,mapdDispatchToProps)(AudioForm)

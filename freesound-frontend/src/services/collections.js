@@ -10,6 +10,12 @@ const getAll = async()=>{
 	const response  = await axios.get(baseUrl)
 	return response
 }
+const getAllInGenreAndCreator=async(genreId)=>{
+	const userAndToken = JSON.parse(localStorage.getItem('user'))
+	const response  = await axios.get(baseUrl+"?genre="+genreId+"&&creator="+userAndToken.user)
+	console.log(response.data)
+	return response
+}
 const getAllInGenre=async(genreId)=>{
 	const response  = await axios.get(baseUrl+"?genre="+genreId)
 	return response
@@ -25,4 +31,4 @@ const addOne = async(data)=>{
 	return response
 
 }
-export default {getAll,getOne,getAllInGenre,addOne}
+export default {getAll,getOne,getAllInGenre,getAllInGenreAndCreator,addOne}

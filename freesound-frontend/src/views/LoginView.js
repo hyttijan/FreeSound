@@ -15,7 +15,7 @@ class LoginView extends React.Component{
 				?
 				<Redirect to={`/user/${this.props.login.id}`} />
 				:
-			  <LoginForm/>
+				<LoginForm/>
 				}
 			</div>
 		)

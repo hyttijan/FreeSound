@@ -8,6 +8,8 @@ const collectionReducer = (state=[],action)=>{
 			return action.collections
 		case 'ADD_COLLECTION':
 			return [...state,action.collection]
+		case 'EMPTY_COLLECTIONS':
+			return []
 		default:
 			break
 	}
@@ -52,6 +54,25 @@ const initAllCollectionInGenreAction = (genreId)=>{
 		
 	}
 }
+const initAllCollectionInGenreAndCreatorAction = (genreId)=>{
+	return async(dispatch)=>{
+		try{
+			const response = await collectionService.getAllInGenreAndCreator(genreId)
+			if(response.status===200){
+				dispatch({type:'INIT_GENRE_COLLECTIONS',collections:response.data})	
+			}
+			else{
+				const notification = response.statusText
+				addNotificationErrorAction(notification,dispatch)	
+			}
+		}
+		catch(error){
+			const notification = error.response?error.response.statusText:"Network error"
+			addNotificationErrorAction(notification,dispatch)
+		}
+		
+	}
+}
 const addCollectionAction = (collection)=>{
 	return async(dispatch)=>{
 		try{
@@ -67,10 +88,16 @@ const addCollectionAction = (collection)=>{
 			}
 		}
 		catch(error){
+			console.log(error.response)
 			const notification = error.response?error.response.statusText:"Network error"
 			addNotificationErrorAction(notification,dispatch)
 		}
 		
 	}	
 }
-export {collectionReducer,initAllCollectionsAction,initAllCollectionInGenreAction,addCollectionAction}
+const emptyCollectionAction =  ()=>{
+	return (dispatch)=>{
+		dispatch({type:'EMPTY_COLLECTIONS'})
+	}
+} 
+export {collectionReducer,initAllCollectionsAction,initAllCollectionInGenreAction,initAllCollectionInGenreAndCreatorAction, emptyCollectionAction, addCollectionAction}

@@ -1,6 +1,7 @@
 import userService from '../services/users'
 import loginService from '../services/login'
 import {addNotificationErrorAction,addNotificationSuccessAction} from '../reducers/NotificationReducer'
+
 const loginReducer = (state=null,action)=>{
 	switch(action.type){
 		case 'LOGIN':
@@ -17,7 +18,6 @@ const loginAction = (credentials)=>{
 	return async(dispatch)=>{
 		try{
 			const response = await loginService.login(credentials)
-			console.log(response)
 			const datas = []
 			if(response.status===200){
 				const response2 = await userService.getOne(response.data.user)

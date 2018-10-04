@@ -1,7 +1,6 @@
 from rest_framework import status,viewsets,routers, permissions
 from rest_framework.parsers import FormParser,MultiPartParser,JSONParser
-from rest_framework.permissions import AllowAny
-from .permissions import IsOwnerOrReadOnly
+from .permissions import IsOwnerOrReadOnly,AllowCreate
 from .models import *
 from django_filters import rest_framework as filters
 from .permissions import *
@@ -13,13 +12,7 @@ class FreeSoundUserViewSet(viewsets.ModelViewSet):
 	queryset = FreeSoundUser.objects.all()
 	serializer_class = FreeSoundUserSerializer
 	parser_classes = (MultiPartParser,FormParser)
-	def get_permissions(self):
-		if self.request.method == 'DELETE' or self.request.method == 'PUT':
-			return [IsOwnerOrReadOnly()]
-		else:
-			return [AllowAny()]
-	
-
+	permission_classes = [AllowCreate]
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -28,10 +21,14 @@ class GenreViewSet(viewsets.ModelViewSet):
 
 class CollectionViewSet(viewsets.ModelViewSet):
 	queryset = Collection.objects.all()
-	serializer_class = CollectionSerializer
 	filter_backends = (filters.DjangoFilterBackend,)
-	filterset_fields = ('genre',)
+	filterset_fields = ('genre','creator',)
 	permission_classes = [IsOwnerOrReadOnly]
+	def get_serializer_class(self):
+		if self.action == 'create':
+			return PostCollectionSerializer
+		else:
+			return CollectionSerializer
 
 
 class AudioViewSet(viewsets.ModelViewSet):

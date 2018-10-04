@@ -11,10 +11,10 @@ class TokenSerializer(serializers.ModelSerializer):
 		fields = ('key', 'user')
 
 class FreeSoundUserSerializer(serializers.ModelSerializer):
-
+	profile_picture = serializers.ImageField(allow_null=True)
 	class Meta:
 		model = FreeSoundUser
-		fields = ('id','username','first_name','last_name','email','profile_picture','password')
+		fields = ('id','username','first_name','last_name','email','profile_picture')
 
 	
 	def create(self, *args, **kwargs):
@@ -35,15 +35,18 @@ class AudioSerializer(serializers.ModelSerializer):
 		model = Audio
 		fields = '__all__'
 
-	def create(self, validated_data):
-		data = validated_data.copy()
-		data['creator'] = self.context['request'].user
-		return super(AudioSerializer, self).create(data)
 
-class CollectionSerializer(serializers.ModelSerializer):
-	creator = FreeSoundUserSerializer(read_only=True)
+class PostCollectionSerializer(serializers.ModelSerializer):
 	audio_set = AudioSerializer(many=True,read_only=True)
 	class Meta:
 		model = Collection
 		fields = ('id','name','description','creator','genre', 'audio_set')
+
+class CollectionSerializer(serializers.ModelSerializer):
+	creator =  FreeSoundUserSerializer(read_only=True)
+	audio_set = AudioSerializer(many=True,read_only=True)
+	class Meta:
+		model = Collection
+		fields = ('id','name','description','creator','genre', 'audio_set')
+
 

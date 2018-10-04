@@ -8,7 +8,6 @@ import {userReducer} from './reducers/UserReducer'
 import {genreReducer} from './reducers/GenreReducer'
 import {collectionReducer} from './reducers/CollectionReducer'
 import {notificationReducer} from './reducers/NotificationReducer'
-import {filterReducer} from './reducers/FilterReducer'
 import {Provider} from 'react-redux'
 import thunk from 'redux-thunk'
 import registerServiceWorker from './registerServiceWorker';
@@ -18,8 +17,7 @@ const reducer = combineReducers({
 								notifications: notificationReducer,
 								genres: genreReducer,
 								collections: collectionReducer,
-								user: userReducer,
-								filter: filterReducer
+								user: userReducer
 								})
 
 const store = createStore(reducer,applyMiddleware(thunk))
