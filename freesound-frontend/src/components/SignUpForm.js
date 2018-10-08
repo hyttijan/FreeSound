@@ -9,8 +9,8 @@ class SignUpForm extends React.Component{
               username:null,
   					  password1:null,
               passwor2:null,
-              first_name:null,
-              last_name:null,
+              first_name:"",
+              last_name:"",
               email:null,
               profile_picture:null,
               usernameError:null,
@@ -27,7 +27,7 @@ class SignUpForm extends React.Component{
       else if(event.target.name==='email'){
 
       }
-      else if(event.target.name==='password'||event.target.name==='password2'){
+      else if(event.target.name==='password1'||event.target.name==='password2'){
         this.handlePasswordError(event.target.name,event.target.value)  
       }
       
@@ -53,7 +53,7 @@ class SignUpForm extends React.Component{
       
     }
     handlePasswordError = (passwordKey,password)=>{
-      if(password.length===0){
+      if(password.length==0){
         this.setState({passwordError:{header:'Password error',content:'Password cannot be blank'}})  
       }
       else if((passwordKey==='password1'&&password!==this.state.password2)||(passwordKey==='password2'&&password!==this.state.password1)){
@@ -75,7 +75,10 @@ class SignUpForm extends React.Component{
       formData.append('first_name',this.state.first_name)
       formData.append('last_name',this.state.last_name)
       formData.append('email',this.state.email)
-      formData.append('profile_picture',this.state.profile_picture)
+      if(this.state.profile_picture!==null){
+        formData.append('profile_picture',this.state.profile_picture)  
+      }
+      
 
       this.props.signUpAction(formData)
   	}
@@ -85,13 +88,14 @@ class SignUpForm extends React.Component{
   		<Segment inverted>
   			<Form error encType="multipart/form-data" inverted onSubmit={this.handleSubmit}>
           <h3>Sign Up Form</h3>
+          <p>* required field</p>
           {this.state.usernameError&&
           <Form.Group widths='equal'>
             <Message error header={this.state.usernameError.header} content={this.state.usernameError.content}/>
           </Form.Group>
           }
   				<Form.Group  widths='equal'>
-  					<Form.Input fluid label="Username" onChange={this.handleChange} name="username"/> 
+  					<Form.Input fluid label="* Username" onChange={this.handleChange} name="username"/> 
           </Form.Group>
           <Form.Group  widths='equal'>
             <Form.Input fluid label="First name" onChange={this.handleChange} name="first_name"/> 
@@ -100,7 +104,7 @@ class SignUpForm extends React.Component{
             <Form.Input fluid label="Last name" onChange={this.handleChange} name="last_name"/> 
           </Form.Group>
           <Form.Group  widths='equal'>
-            <Form.Input fluid label="Email" onChange={this.handleChange} name="email"/> 
+            <Form.Input fluid label="* Email" onChange={this.handleChange} name="email"/> 
           </Form.Group>
           {this.state.passwordError&&
           <Form.Group widths='equal'>
@@ -108,10 +112,10 @@ class SignUpForm extends React.Component{
           </Form.Group>
           }
           <Form.Group widths='equal'>	
-            <Form.Input fluid label="Password" onChange={this.handleChange} name="password1" type="password"/>
+            <Form.Input fluid label="* Password" onChange={this.handleChange} name="password1" type="password"/>
   				</Form.Group>
           <Form.Group widths='equal'> 
-            <Form.Input fluid label="Repeat password" onChange={this.handleChange} name="password2" type="password"/>
+            <Form.Input fluid label="* Repeat password" onChange={this.handleChange} name="password2" type="password"/>
           </Form.Group>
           {this.state.profilePictureError&&
           <Form.Group widths='equal'>
@@ -134,7 +138,8 @@ class SignUpForm extends React.Component{
   				</Form.Group>
           <Form.Button disabled={!this.state.username
   					||!this.state.password1
-            ||(this.state.password1!==this.state.password2)}
+            ||(this.state.password1!==this.state.password2)
+            ||!this.state.email}
             type="submit">sign up</Form.Button>
   			</Form>
   		</Segment>)

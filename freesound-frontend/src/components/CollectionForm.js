@@ -7,7 +7,7 @@ class CollectionForm extends React.Component{
  	constructor(props){
   		super(props)
   		this.state = {name:null,
-  					  description:null,
+  					  description:"",
   					  genre:null,
   					  nameError:null,
   					  descriptionError:null,
@@ -72,16 +72,17 @@ class CollectionForm extends React.Component{
   		<Segment inverted>
   			<Form error inverted onSubmit={this.handleSubmit}>
   				<h3>Add new collection</h3>
+          <p>* required field</p>
           {this.state.nameError&&<Form.Group><Message error header={this.state.nameError.header} content={this.state.nameError.content}/></Form.Group>} 
   				<Form.Group  widths='equal'>
-  					<Form.Input fluid label="Name" onChange={this.handleChange} name="name"/>
+  					<Form.Input fluid label="* Name" onChange={this.handleChange} name="name"/>
   				</Form.Group>
           {this.state.descriptionError&&<Form.Group><Message error header={this.state.descriptionError.header} content={this.state.descriptionError.content}/></Form.Group>}
           <Form.Group widths='equal'>
   					<TextArea placeholder="Description" onChange={this.handleChange} name="description"/>
   				</Form.Group>
   				<Form.Group widths='equal'>
-  					<Select onChange={this.handleGenreChange} placeholder='Select genre' options={genres} name="genre"/>
+  					<Select onChange={this.handleGenreChange} placeholder='* Select genre' options={genres} name="genre"/>
  				  </Form.Group>
   				<Form.Button disabled={this.state.nameError
   					||!this.state.genre

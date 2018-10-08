@@ -129,21 +129,22 @@ class AudioForm extends React.Component{
   		<Segment inverted>
   			<Form error inverted encType="multipart/form-data" onSubmit={this.handleSubmit}>
   				<h3>Add new audio</h3>
+  				<p>* required field</p>
   				{this.state.nameError
   				&&<Form.Group><Message error header={this.state.nameError.header} content={this.state.nameError.content}/>}</Form.Group>}
   				<Form.Group  widths='equal'>
-  					<Form.Input fluid label="Name" onChange={this.handleChange} name="name"/>
+  					<Form.Input fluid label="* Name" onChange={this.handleChange} name="name"/>
   				</Form.Group>
   				<Form.Group widths='equal'>
   					<Form.Input fluid label="Description" onChange={this.handleChange} name="description"/>
   				</Form.Group>
   				{this.state.genreError&&<Form.Group><Message error header={this.state.genreError.header} content={this.state.genreError.content}/></Form.Group>}
   				<Form.Group widths='equal'>
-  					<Select onChange={this.handleGenreChange} placeholder='Select genre' options={genres} name="genre"/>
+  					<Select onChange={this.handleGenreChange} placeholder='* Select genre' options={genres} name="genre"/>
   				</Form.Group>
   				{this.state.collectionError&&<Form.Group><Message error header={this.state.collectionError.header} content={this.state.collectionError.content}/></Form.Group>}
   				<Form.Group>
-  					<Select onChange={this.handleCollectionChange} placeholder='Select collection' options={collections} name="collection"/>
+  					<Select onChange={this.handleCollectionChange} placeholder='* Select collection' options={collections} name="collection"/>
   				</Form.Group>
   				{this.state.audio_fileError&&<Form.Group><Message error header={this.state.audio_fileError.header} content={this.state.audio_fileError.content}/></Form.Group>}
   				<Form.Group>
@@ -155,7 +156,7 @@ class AudioForm extends React.Component{
   					:
   					<label onClick={this.handleClick} htmlFor="file" className="ui icon button">
         				<i className="file icon"></i>
-        				Upload audio file
+        				* Upload audio file
         			</label>
         			}
   					<input type="file" ref="audio_file_uploader" onChange={this.handleFileChange} name="audio_file" style={{display:'none'}}/>	 

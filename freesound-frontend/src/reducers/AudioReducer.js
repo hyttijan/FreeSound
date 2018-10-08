@@ -15,8 +15,19 @@ const addAudioAction = (formData)=>{
 			}
 		}
 		catch(error){
-			const notification = error.response?error.response.statusText:"Network error"
-			addNotificationErrorAction(notification,dispatch)
+			const errors = []
+			if(error.response){
+				for(var err in error.response.data){
+					errors.push(error.response.data[err])
+				}	
+			}
+			else{
+				errors.push("Network error, could not add audio")
+			}
+			errors.forEach(error=>{
+				addNotificationErrorAction(error,dispatch)
+			})
+			
 		}
 		
 	}

@@ -5,6 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.core.validators import FileExtensionValidator
 
 class FreeSoundUser(AbstractUser):
+	email = models.EmailField(null=True)
 	profile_picture = models.ImageField(upload_to="profile_pictures")
 
 class Genre(models.Model):
